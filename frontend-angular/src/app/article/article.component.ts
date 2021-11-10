@@ -19,6 +19,7 @@ export class ArticleComponent implements OnInit {
   article: Article;
   currentUser: User;
   canModify: boolean;
+  canDelete: boolean;
   comments: Comment[];
   commentControl = new FormControl();
   commentFormErrors = {};
@@ -48,8 +49,8 @@ export class ArticleComponent implements OnInit {
     this.userService.currentUser.subscribe(
       (userData: User) => {
         this.currentUser = userData;
-
         this.canModify = (this.currentUser.username === this.article.author.username);
+        this.canDelete = (this.currentUser.role && this.currentUser.role.is_admin) || this.canModify;
       }
     );
   }

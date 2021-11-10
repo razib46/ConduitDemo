@@ -25,6 +25,7 @@ class RegisterUser extends ApiRequest
             'username' => 'required|max:50|alpha_num|unique:users,username',
             'email' => 'required|email|max:255|unique:users,email',
             'password' => 'required|min:6',
+            'role_id' => 'required'
         ];
     }
 }

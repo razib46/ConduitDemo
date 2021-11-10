@@ -1,0 +1,19 @@
+.tag-pill{
+  cursor:pointer;
+}
+  
+.tag-container {
+  min-height: 2.0rem;
+  line-height: 1.5rem;
+}
+  
+.tag-counter {
+  background-color: #fff;
+  color: #818a91 !important;
+  margin: 4px 4px 4px 8px;
+  line-height: 17px;
+  padding: 0;
+  min-width: 19px;
+  text-align: center;
+  height: 19px;
+}

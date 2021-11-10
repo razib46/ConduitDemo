@@ -64,7 +64,7 @@
         <a class="nav-link"
           [routerLink]="['/profile', currentUser.username]"
           routerLinkActive="active">
-          <img [src]="currentUser.image" *ngIf="currentUser.image" class="user-pic" />
+          <img [src]="currentUser.file ? currentUser.file.slug : null" *ngIf="currentUser.file" class="user-pic" />
           {{ currentUser.username }}
         </a>
       </li>

@@ -1,0 +1,29 @@
+select {
+    min-height: 3.2rem;
+}
+
+.image-circle-container {
+    border: 1px solid red;
+    height: 0;
+    overflow: hidden;
+    padding-top: 100%;
+    box-sizing: border-box;
+    position: relative;
+    border-radius: 50%;
+    margin-top: 2rem;
+  }
+
+.image-circle-container img {
+    width: 100%;
+    vertical-align: top;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    object-fit: cover;
+}
+
+.upload-image-button {
+    width: 100%;
+    margin: 0.8rem 0;
+}

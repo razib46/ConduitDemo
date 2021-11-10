@@ -54,4 +54,28 @@ class ArticleFilter extends Filter
 
         return $this->builder->whereIn('id', $articleIds);
     }
+    
+    /**
+     * Filter by most relevant.
+     * Get first 3 most rated articles.
+     *
+     * @param $name
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    protected function relevant($name)
+    {
+        $relevantLimit = request()->get('relevantlimit', 3);
+        if ($name == 1) {
+            return $this->builder->orderBy('favorited_count', 'desc')->orderBy('updated_at', 'desc');
+        } else if ($name == 2) {
+            $relevants = $this->builder->orderBy('favorited_count', 'desc')->orderBy('updated_at', 'desc')->take(3)->get();
+            $skipArticles = [];
+            foreach ($relevants as $value) {
+                array_push($skipArticles, $value->slug);
+            }
+            return $this->builder->whereNotIn('slug', $skipArticles);
+        } else {
+            return $this->builder;
+        }
+    }
 }

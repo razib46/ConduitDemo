@@ -18,6 +18,17 @@ class ApiRequest extends FormRequest
     }
 
     /**
+     * Determine if the user is Admin.
+     *
+     * @return bool
+     */
+    public function authorizeAdmin()
+    {
+        $role = auth()->user()->role;
+        return $role && $role->is_admin;
+    }
+
+    /**
      * Get the validation rules that apply to the request.
      *
      * @return array

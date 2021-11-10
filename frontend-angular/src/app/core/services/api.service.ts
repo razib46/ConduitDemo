@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
-import { HttpHeaders, HttpClient, HttpParams } from '@angular/common/http';
-import { Observable ,  throwError } from 'rxjs';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
 
 import { JwtService } from './jwt.service';
 import { catchError } from 'rxjs/operators';
@@ -11,10 +11,10 @@ export class ApiService {
   constructor(
     private http: HttpClient,
     private jwtService: JwtService
-  ) {}
+  ) { }
 
   private formatErrors(error: any) {
-    return  throwError(error.error);
+    return throwError(error.error);
   }
 
   get(path: string, params: HttpParams = new HttpParams()): Observable<any> {
@@ -39,6 +39,15 @@ export class ApiService {
   delete(path): Observable<any> {
     return this.http.delete(
       `${environment.api_url}${path}`
+    ).pipe(catchError(this.formatErrors));
+  }
+
+  upload(path: string, file: File): Observable<any> {
+    let formData = new FormData();
+    formData.append('file', file);
+
+    return this.http.post(
+      `${environment.api_url}${path}`, formData
     ).pipe(catchError(this.formatErrors));
   }
 }

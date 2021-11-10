@@ -1,4 +1,4 @@
-<div class="article-preview">
+<div class="article-preview" [ngClass]="{'article-pinned': article.category && article.category.pinned}">
   <app-article-meta [article]="article">
     <app-favorite-button
       [article]="article"
@@ -9,6 +9,7 @@
   </app-article-meta>
 
   <a [routerLink]="['/article', article.slug]" class="preview-link">
+    <p *ngIf="article.category != null" class="article-category">{{ article.category.name }}</p>
     <h1>{{ article.title }}</h1>
     <p>{{ article.description }}</p>
     <span>Read more...</span>

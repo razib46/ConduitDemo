@@ -13,6 +13,7 @@ class ProfileTransformer extends Transformer
             'bio'       => $data['bio'],
             'image'     => $data['image'],
             'following' => $data['following'],
+            'file'      => $this->getFile($data['file'])
         ];
     }
 }

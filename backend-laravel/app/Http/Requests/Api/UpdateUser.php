@@ -27,6 +27,8 @@ class UpdateUser extends ApiRequest
             'password' => 'sometimes|min:6',
             'bio' => 'sometimes|nullable|max:255',
             'image' => 'sometimes|nullable|url',
+            'role_id' => 'sometimes|nullable',
+            'file_id' => 'sometimes|nullable',
         ];
     }
 }

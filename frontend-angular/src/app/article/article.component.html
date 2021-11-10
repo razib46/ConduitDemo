@@ -3,16 +3,17 @@
   <div class="banner">
     <div class="container">
       <h1>{{ article.title }}</h1>
+      <p>{{ article.category.name }}</p>
 
       <app-article-meta [article]="article">
 
-          <span [hidden]="!canModify">
-          <a class="btn btn-sm btn-outline-secondary"
+        <span>
+          <a [hidden]="!canModify" class="btn btn-sm btn-outline-secondary"
              [routerLink]="['/editor', article.slug]">
             <i class="ion-edit"></i> Edit Article
           </a>
 
-          <button class="btn btn-sm btn-outline-danger"
+          <button [hidden]="!canDelete" class="btn btn-sm btn-outline-danger"
             [ngClass]="{disabled: isDeleting}"
             (click)="deleteArticle()">
             <i class="ion-trash-a"></i> Delete Article
@@ -58,13 +59,13 @@
     <div class="article-actions">
       <app-article-meta [article]="article">
 
-          <span [hidden]="!canModify">
-          <a class="btn btn-sm btn-outline-secondary"
+          <span>
+          <a  [hidden]="!canModify" class="btn btn-sm btn-outline-secondary"
              [routerLink]="['/editor', article.slug]">
             <i class="ion-edit"></i> Edit Article
           </a>
 
-          <button class="btn btn-sm btn-outline-danger"
+          <button  [hidden]="!canDelete" class="btn btn-sm btn-outline-danger"
             [ngClass]="{disabled: isDeleting}"
             (click)="deleteArticle()">
             <i class="ion-trash-a"></i> Delete Article
@@ -102,7 +103,7 @@
                 ></textarea>
               </div>
               <div class="card-footer">
-                <img [src]="currentUser.image" class="comment-author-img" />
+                <img [src]="currentUser.file ? currentUser.file.slug : null" class="comment-author-img" />
                 <button class="btn btn-sm btn-primary" type="submit">
                  Post Comment
                 </button>

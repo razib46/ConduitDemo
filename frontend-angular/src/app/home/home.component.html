@@ -27,37 +27,27 @@
                  Global Feed
               </a>
             </li>
+            
             <li class="nav-item" [hidden]="!listConfig.filters.tag">
               <a class="nav-link active">
                 <i class="ion-pound"></i> {{ listConfig.filters.tag }}
               </a>
             </li>
+            
           </ul>
+        </div>
+
+        <div *ngIf="listConfig.type !== 'feed'" class="most-rated">
+          <p>Most Rated</p>
+          <app-article-list [limit]="3" [relevant]="1" [config]="listConfig"></app-article-list>
         </div>
 
         <app-article-list [limit]="10" [config]="listConfig"></app-article-list>
       </div>
 
       <div class="col-md-3">
-        <div class="sidebar">
-          <p>Popular Tags</p>
-
-          <div class="tag-list">
-            <a *ngFor="let tag of tags"
-               (click)="setListTo('all', {tag: tag})"
-               class="tag-default tag-pill">
-               {{ tag }}
-            </a>
-          </div>
-
-          <div [hidden]="tagsLoaded">
-            Loading tags...
-          </div>
-
-          <div [hidden]="!tagsLoaded || tags.length > 0">
-            No tags are here... yet.
-          </div>
-        </div>
+        <app-popular-tags></app-popular-tags>
+        <app-popular-users></app-popular-users>
       </div>
 
     </div>

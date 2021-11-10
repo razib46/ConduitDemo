@@ -1,3 +1,4 @@
+import { Category } from './category.model';
 import { Profile } from './profile.model';
 
 export interface Article {
@@ -10,5 +11,6 @@ export interface Article {
   updatedAt: string;
   favorited: boolean;
   favoritesCount: number;
+  category?: Category;
   author: Profile;
 }

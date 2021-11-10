@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Tag;
 use App\RealWorld\Transformers\TagTransformer;
+use DB;
 
 class TagController extends ApiController
 {
@@ -24,7 +25,11 @@ class TagController extends ApiController
      */
     public function index()
     {
-        $tags = Tag::all()->pluck('name');
+        $tags = DB::table('article_tag')
+            ->leftJoin('tags', 'article_tag.tag_id', '=', 'tags.id')
+            ->select(DB::raw('COUNT(article_tag.tag_id) as counter'), 'tags.name')
+            ->groupBy('article_tag.tag_id', 'tags.name')
+            ->get();
 
         return $this->respondWithTransformer($tags);
     }

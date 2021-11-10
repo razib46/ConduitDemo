@@ -6,3 +6,7 @@ export * from './jwt.service';
 export * from './profiles.service';
 export * from './tags.service';
 export * from './user.service';
+export * from './popular-users.service';
+export * from './roles.service';
+export * from './categories.service';
+export * from './upload-file.service';

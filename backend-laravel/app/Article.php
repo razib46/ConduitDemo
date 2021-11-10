@@ -17,7 +17,7 @@ class Article extends Model
      * @var array
      */
     protected $fillable = [
-        'title', 'description', 'body'
+        'title', 'description', 'body', 'category_id'
     ];
 
     /**
@@ -84,6 +84,16 @@ class Article extends Model
     public function tags()
     {
         return $this->belongsToMany(Tag::class);
+    }
+
+    /**
+     * Get the category that belong to the article.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
     }
 
     /**

@@ -2,6 +2,9 @@
   cursor:pointer;
 }
 
-.tag-pill{
-  cursor:pointer;
+.most-rated {
+  padding: 5px 10px 10px;
+  background: #f3f3f3;
+  border-radius: 4px;
+  margin: 10px 0;
 }

@@ -53,6 +53,7 @@ class ArticleController extends ApiController
             'title' => $request->input('article.title'),
             'description' => $request->input('article.description'),
             'body' => $request->input('article.body'),
+            'category_id' => $request->input('article.category_id')
         ]);
 
         $inputTags = $request->input('article.tagList');

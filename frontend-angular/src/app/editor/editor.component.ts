@@ -2,10 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { Article, ArticlesService } from '../core';
+import { Article, ArticlesService, CategoriesService, Category } from '../core';
 
 @Component({
   selector: 'app-editor-page',
+  styleUrls: ['./editor.component.css'],
   templateUrl: './editor.component.html'
 })
 export class EditorComponent implements OnInit {
@@ -14,18 +15,22 @@ export class EditorComponent implements OnInit {
   tagField = new FormControl();
   errors: Object = {};
   isSubmitting = false;
+  categories: Array<Category> = [];
+  categoriesLoaded = false;
 
   constructor(
     private articlesService: ArticlesService,
     private route: ActivatedRoute,
     private router: Router,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private categoriesService: CategoriesService
   ) {
     // use the FormBuilder to create a form group
     this.articleForm = this.fb.group({
       title: '',
       description: '',
-      body: ''
+      body: '',
+      category_id: ''
     });
 
     // Initialized tagList as empty array
@@ -36,13 +41,19 @@ export class EditorComponent implements OnInit {
   }
 
   ngOnInit() {
-    // If there's an article prefetched, load it
-    this.route.data.subscribe((data: { article: Article }) => {
-      if (data.article) {
-        this.article = data.article;
-        this.articleForm.patchValue(data.article);
-      }
-    });
+    this.categoriesService.getAll()
+      .subscribe(categories => {
+        this.categories = categories;
+        this.categoriesLoaded = true;
+
+        // If there's an article prefetched, load it
+        this.route.data.subscribe((data: { article: Article }) => {
+          if (data.article) {
+            this.article = data.article;
+            this.articleForm.patchValue(data.article);
+          }
+        });
+      });
   }
 
   addTag() {

@@ -62,6 +62,49 @@ abstract class Transformer
     }
 
     /**
+     * Get uploaded files url.
+     *
+     * @return string
+     */
+    public function publicFilesUrl() {
+        return url('/') . '/files/';
+    }
+
+    /**
+     * Get role data.
+     *
+     * @param array $data)
+     * @return array
+     */
+    public function getRole($data) {
+        $role = [];
+        if ($data) {
+            $role = [
+                'name'       => $data['name'],
+                'is_admin'   => $data['is_admin']
+            ];
+        }
+        return $role;
+    }
+
+    /**
+     * Get file data.
+     *
+     * @param array $data)
+     * @return array
+     */
+    public function getFile($data) {
+        $file = [];
+        if ($data) {
+            $file = [
+                'name'       => $data['name'],
+                'slug'       => $this->publicFilesUrl() . $data['slug']
+            ];
+        }
+        return $file;
+    }
+
+    /**
      * Apply the transformation.
      *
      * @param $data

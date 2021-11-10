@@ -18,6 +18,7 @@ class CommentTransformer extends Transformer
                 'bio'       => $data['user']['bio'],
                 'image'     => $data['user']['image'],
                 'following' => $data['user']['following'],
+                'file'      => $this->getFile($data['user']['file'])
             ]
         ];
     }

@@ -14,6 +14,10 @@ class UserTransformer extends Transformer
             'username'  => $data['username'],
             'bio'       => $data['bio'],
             'image'     => $data['image'],
+            'role_id'   => $data['role_id'],
+            'role'      => $this->getRole($data['role']),
+            'file_id'   => $data['file_id'],
+            'file'      => $this->getFile($data['file'])
         ];
     }
 }

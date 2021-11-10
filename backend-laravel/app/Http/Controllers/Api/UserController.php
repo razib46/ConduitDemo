@@ -40,7 +40,13 @@ class UserController extends ApiController
         $user = auth()->user();
 
         if ($request->has('user')) {
-            $user->update($request->get('user'));
+            $user->username = $request->input('user.username');
+            $user->email = $request->input('user.email');
+            $user->bio = $request->input('user.bio');
+            $user->role_id = $request->input('user.role_id');
+            $user->file_id = $request->input('user.file_id');
+            $user->password = bcrypt($request->input('user.password'));
+            $user->update();
         }
 
         return $this->respondWithTransformer($user);

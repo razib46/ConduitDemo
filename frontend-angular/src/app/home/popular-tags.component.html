@@ -1,0 +1,17 @@
+<div class="sidebar">
+  <p>Popular Tags</p>
+
+  <div class="tag-list">
+    <a *ngFor="let tag of tags" (click)="setListTo('all', {tag: tag.name})" class="tag-default tag-pill tag-container">
+      {{ tag.name }} <span *ngIf="tag.counter > 1" class="tag-default tag-pill tag-counter">{{ tag.counter }}</span>
+    </a>
+  </div>
+
+  <div [hidden]="tagsLoaded">
+    Loading tags...
+  </div>
+
+  <div [hidden]="!tagsLoaded || tags.length > 0">
+    No tags are here... yet.
+  </div>
+</div>

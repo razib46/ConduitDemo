@@ -16,6 +16,17 @@
             </fieldset>
 
             <fieldset class="form-group">
+              <select
+                formControlName="category_id"
+                placeholder="Category"
+                class="form-control form-control-lg">
+                  <option *ngFor="let category of categories" [ngValue]="category.id">
+                    {{ category.name }}
+                  </option>
+              </select>
+            </fieldset>
+
+            <fieldset class="form-group">
               <input class="form-control"
                 formControlName="description"
                 type="text"

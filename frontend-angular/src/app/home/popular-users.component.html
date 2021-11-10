@@ -1,0 +1,17 @@
+<div class="sidebar user-sidebar">
+  <p>Popular Users</p>
+
+  <div class="tag-list">
+    <p *ngFor="let user of users" class="tag-default tag-pill user-container">
+      {{ user.username }}
+    </p>
+  </div>
+
+  <div [hidden]="usersLoaded">
+    Loading users...
+  </div>
+
+  <div [hidden]="!usersLoaded || users.length > 0">
+    No users are here... yet.
+  </div>
+</div>

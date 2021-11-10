@@ -1,0 +1,12 @@
+.article-preview {
+    padding: 1.5rem 0.4rem;
+}
+
+.article-pinned {
+    background-color: lightyellow;
+}
+
+.article-category {
+    line-height: 1.1rem !important;
+    margin-bottom: 3px !important;
+}

@@ -40,5 +40,9 @@ Route::group(['namespace' => 'Api'], function () {
     ]);
 
     Route::get('tags', 'TagController@index');
+    Route::get('popular-users', 'PopularUsersController@index');
+    Route::get('roles', 'RoleController@index');
+    Route::get('categories', 'CategoryController@index');
 
+    Route::post('/upload-file', 'UploadController@store');
 });

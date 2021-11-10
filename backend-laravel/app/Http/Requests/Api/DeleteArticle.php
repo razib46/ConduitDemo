@@ -13,6 +13,6 @@ class DeleteArticle extends ApiRequest
     {
         $article = $this->route('article');
 
-        return $article->user_id == auth()->id();
+        return $this->authorizeAdmin() || $article->user_id == auth()->id();
     }
 }

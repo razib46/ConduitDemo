@@ -2,10 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { Errors, UserService } from '../core';
+import { Errors, RolesService, UserService } from '../core';
+import { Role } from '../core/models/role.model';
 
 @Component({
   selector: 'app-auth-page',
+  styleUrls: ['./auth.component.css'],
   templateUrl: './auth.component.html'
 })
 export class AuthComponent implements OnInit {
@@ -14,12 +16,15 @@ export class AuthComponent implements OnInit {
   errors: Errors = {errors: {}};
   isSubmitting = false;
   authForm: FormGroup;
+  roles: Array<Role> = [];
+  rolesLoaded = false;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private userService: UserService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private rolesService: RolesService
   ) {
     // use FormBuilder to create a form group
     this.authForm = this.fb.group({
@@ -37,8 +42,17 @@ export class AuthComponent implements OnInit {
       // add form control for username if this is the register page
       if (this.authType === 'register') {
         this.authForm.addControl('username', new FormControl());
+        this.authForm.addControl('role_id', new FormControl());
       }
     });
+
+    if (this.authType === 'register') {
+      this.rolesService.getAll()
+      .subscribe(roles => {
+        this.roles = roles;
+        this.rolesLoaded = true;
+      });
+    }
   }
 
   submitForm() {

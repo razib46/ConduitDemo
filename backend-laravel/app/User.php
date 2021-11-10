@@ -19,7 +19,7 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $fillable = [
-        'username', 'email', 'password', 'bio', 'image'
+        'username', 'email', 'password', 'bio', 'image', 'role_id, file_id'
     ];
 
     /**
@@ -69,6 +69,26 @@ class User extends Authenticatable implements JWTSubject
     public function comments()
     {
         return $this->hasMany(Comment::class)->latest();
+    }
+
+    /**
+     * Get the role that belong to the user.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
+    }
+
+    /**
+     * Get the file that belong to the user.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function file()
+    {
+        return $this->belongsTo(File::class);
     }
 
     /**
