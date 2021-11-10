@@ -56,16 +56,7 @@ class ArticleController extends ApiController
             'category_id' => $request->input('article.category_id')
         ]);
 
-        $inputTags = $request->input('article.tagList');
-
-        if ($inputTags && ! empty($inputTags)) {
-
-            $tags = array_map(function($name) {
-                return Tag::firstOrCreate(['name' => $name])->id;
-            }, $inputTags);
-
-            $article->tags()->attach($tags);
-        }
+        $this->attachTags($request->input('article.tagList'), $article);
 
         return $this->respondWithTransformer($article);
     }
@@ -92,6 +83,8 @@ class ArticleController extends ApiController
     {
         if ($request->has('article')) {
             $article->update($request->get('article'));
+            $article->tags()->delete();
+            $this->attachTags($request->input('article.tagList'), $article);
         }
 
         return $this->respondWithTransformer($article);
@@ -109,5 +102,23 @@ class ArticleController extends ApiController
         $article->delete();
 
         return $this->respondSuccess();
+    }
+
+    /**
+     * Attach tags to given article.
+     *
+     * @param array $inputTags
+     * @param Article $article
+     * @return void
+     */
+    private function attachTags(array $inputTags, Article $article) 
+    {
+        if ($inputTags && ! empty($inputTags)) {
+            $tags = array_map(function($name) {
+                return Tag::firstOrCreate(['name' => $name])->id;
+            }, $inputTags);
+
+            $article->tags()->attach($tags);
+        }
     }
 }

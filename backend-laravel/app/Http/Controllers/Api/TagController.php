@@ -25,10 +25,11 @@ class TagController extends ApiController
      */
     public function index()
     {
-        $tags = DB::table('article_tag')
-            ->leftJoin('tags', 'article_tag.tag_id', '=', 'tags.id')
+        $tags = DB::table('tags')
+            ->leftJoin('article_tag', 'tags.id', '=', 'article_tag.tag_id')
             ->select(DB::raw('COUNT(article_tag.tag_id) as counter'), 'tags.name')
             ->groupBy('article_tag.tag_id', 'tags.name')
+            ->orderBy('counter', 'desc')
             ->get();
 
         return $this->respondWithTransformer($tags);
